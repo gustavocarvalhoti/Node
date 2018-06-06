@@ -2,6 +2,7 @@
 Executando o npm (Cria o package.json que grada as libs)
 npm init
 npm install express --save <- Baixa o express q gerencia as urls
+npm install <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
 
 ********************************************************************************
 Atualizar o Node.js
@@ -54,6 +55,23 @@ if (req.url == "/produtos") {
 }
 
 ********************************************************************************
+#Utilizando express
+npm install express --save <- Instalando
+#Codigo
+var express = require('express');
+var app = express();
+app.get('/', function (req, res) {
+  res.send("<html><body><h1>Home</h1></body></html>");
+});
+app.get('/produtos', function (req, res) {
+  res.send("<html><body><h1>Listagem de produtos</h1></body></html>");
+});
+app.listen(3000, function () {
+  console.log("Servidor rodando");
+});
+#Rodando
+node app.js
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
