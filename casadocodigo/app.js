@@ -1,14 +1,24 @@
-var express = require('express');
-var app = express();
+//var express = require('express');
+//var app = express();
+
+/*
+Para que o Express reconheça a Engine EJS,
+você precisa adicioná-la como uma view engine da sua app
+ */
+//app.set('view engine', 'ejs');
+
+var app = require('./config/express')();
 
 app.get('/', function (req, res) {
-  res.send("<html><body><h1>Home</h1></body></html>");
+    console.log("/home1");
+    res.send("<html><body><h1>Home</h1></body></html>");
 });
 
 app.get('/produtos', function (req, res) {
-  res.send("<html><body><h1>Listagem de produtos</h1></body></html>");
+    console.log("/produtos");
+    res.render("produtos/lista")
 });
 
 app.listen(3000, function () {
-  console.log("Servidor rodando");
+    console.log("Servidor rodando na porta 3000");
 });

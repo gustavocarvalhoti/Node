@@ -73,6 +73,76 @@ app.listen(3000, function () {
 node app.js
 
 ********************************************************************************
+#Utilizando o EJS - Cria páginas dinâmicas
+npm install ejs --save
+
+[file -> app.js]
+/*
+Para que o Express reconheça a Engine EJS,
+você precisa adicioná-la como uma view engine da sua app
+ */
+app.set('view engine','ejs');
+app.get('/produtos',function(req,res){
+    // Ele chama essa página que fica dentro da pasta views
+    res.render("produtos/lista")
+});
+
+[file -> lista.ejs]
+<html>
+<body>
+<table>
+    <tr>
+        <td>id</td>
+        <td>nome</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>livro de node js</td>
+    </tr>
+</table>
+</body>
+</html>
+
+********************************************************************************
+#Monitorando as mudanças e reiniciando o servidor com o Nodemon
+npm install -g nodemon <- O "-g" instala global, somente para o DEV
+agora da para rodar o projeto com -> nodemon app
+
+********************************************************************************
+#Isolando as configurações do Express
+[file -> config/express.js]
+// Retorna sempre a mesma versão do objeto
+var app = require('express')();
+// Para utilizar paginas dinamicas
+app.set('view engine', 'ejs');
+// Exporta o app
+module.exports = function () {
+    return app;
+};
+
+[file -> app.js]
+var app = require('./config/express')();
+
+********************************************************************************
+#CommonJS é uma convenção para carregamentos de módulos javascript
+em aplicações server-side.
+O objeto que o node disponibiliza é o module e a função é passada
+para o atributo exports desse objeto.
+
+********************************************************************************
+#Isolando o código das rotas
+
+
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
+********************************************************************************
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
