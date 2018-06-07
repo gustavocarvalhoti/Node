@@ -1,2 +1,2 @@
 # Node.js
-IntelliJ
+IntelliJ + MySQL + Express + Nodemon
