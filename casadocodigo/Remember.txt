@@ -1,8 +1,13 @@
 ********************************************************************************
-Executando o npm (Cria o package.json que grada as libs)
+Executando o npm (Cria o package.json que guarda as libs)
 npm init
-npm install express --save <- Baixa o express q gerencia as urls
-npm install <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
+
+npm install express --save    <- Gerencia as urls
+sudo npm install -g nodemon   <- Reload
+npm install mysql --save      <- MySQL Database
+
+nodemon app                   <- Roda o nodemon
+npm install                   <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
 
 ********************************************************************************
 Atualizar o Node.js
@@ -131,10 +136,47 @@ para o atributo exports desse objeto.
 
 ********************************************************************************
 #Isolando o código das rotas
+[file -> casadocodigo/app/routes/produtos.js]
+Criar o arquivo com as rotas
+module.exports = function (app) {
+  app.get('/produtos', function (req, res) {
+    res.render("produtos/lista");
+  });
+};
 
+[file -> casadocodigo/app.js]
+var app = require('./config/express')();
+#Passar o app para ele
+require('./app/routes/produtos')(app);
 
 ********************************************************************************
+# Consultando o banco de dados
+npm install mysql --save <- Instalando
+[file -> casadocodigo/app/routes/produtos.js]
+module.exports = function (app) {
+  app.get('/produtos', function (req, res) {
+    var mysql = require('mysql');
+
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'padtec',
+      database: 'casadocodigo_nodejs'
+    });
+
+    connection.query('select * from livros', function (err, results) {
+      res.send(results);
+    });
+    connection.end();
+
+    //res.render("produtos/lista");
+  });
+};
+
 ********************************************************************************
+# Isolando a criação da conexão com o banco de dados
+
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
