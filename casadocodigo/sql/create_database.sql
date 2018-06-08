@@ -1,3 +1,5 @@
+create schema casadocodigo_nodejs;
+
 use casadocodigo_nodejs;
 
 CREATE TABLE livros (

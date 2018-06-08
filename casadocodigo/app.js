@@ -8,8 +8,8 @@ você precisa adicioná-la como uma view engine da sua app
 //app.set('view engine', 'ejs');
 
 var app = require('./config/express')();
-require('./app/routes/produtos')(app);
-require('./app/routes/home')(app);
+//require('./app/routes/produtos')(app);
+//require('./app/routes/home')(app);
 
 /*
 app.get('/', function (req, res) {
