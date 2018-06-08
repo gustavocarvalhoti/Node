@@ -1,4 +1,6 @@
 ********************************************************************************
+_connection <- Variavel privada
+
 Executando o npm (Cria o package.json que guarda as libs)
 npm init
 
@@ -6,8 +8,11 @@ npm install express --save      <- Gerencia as urls
 sudo npm install -g nodemon     <- Reload
 npm install mysql --save        <- MySQL Database
 npm install express-load --save <- Carrega os modulos automatico por pastas
+npm install body-parser --save  <- Para pegar as informações do form
 
 nodemon app                   <- Roda o nodemon
+ps -ef | grep node            <- Kill nodemon
+kill -9 number
 npm install                   <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
 
 ********************************************************************************
@@ -206,7 +211,6 @@ npm install express-load --save
 var express = require('express');
 var load = require('express-load');
 var app = express();
-
 module.exports = function () {
     app.set('view engine', 'ejs');
     app.set('views', './app/views');
@@ -224,8 +228,47 @@ module.exports = function () {
 var connection = app.infra.connectionFactory();
 
 ********************************************************************************
+#Isolando o acesso aos dados do banco
+[file -> casadocodigo/app/infra/produtosDAO.js]
+module.exports = function () {
+  this.lista = function (connection, callback) {
+    connection.query('select * from livros', callback);
+  };
+  return this;
+};
+
+#Chamando o select [file -> casadocodigo/app/routes/produtos.js]
+var produtosBanco = app.infra.produtosBanco;
+produtosBanco.lista(connection, function (err, results) {
+  res.render('produtos/lista', {lista: results});
+});
+connection.end();
+
 ********************************************************************************
+#Utilizando o DAO
+[file -> casadocodigo/app/infra/produtosDAO.js]
+function ProdutosDAO(connection) {
+  this._connection = connection;
+}
+ProdutosDAO.prototype.lista = function (callback) {
+  this._connection.query('select * from livros', callback);
+};
+module.exports = function () {
+  return ProdutosDAO;
+};
+
+[file -> casadocodigo/app/routes/produtos.js]
+const connection = app.infra.connectionFactory();
+var produtosDAO = new app.infra.produtosDAO(connection);
+produtosDAO.lista(function (err, results) {
+  res.render('produtos/lista', {lista: results});
+});
+connection.end();
+
 ********************************************************************************
+#Salvando os produtos no banco
+npm install body-parser --save
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
