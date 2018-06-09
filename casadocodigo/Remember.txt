@@ -267,11 +267,92 @@ connection.end();
 
 ********************************************************************************
 #Salvando os produtos no banco
-npm install body-parser --save
+npm install body-parser --save <- Para gerenciar o form
+[file -> config/express.js]
+// Retorna sempre a mesma versão do objeto
+var bodyParser = require('body-parser');
+module.exports = function () {
+  var app = express();
+  app.set('view engine', 'ejs');
+  app.set('views', './app/views');
+  // O urlencoded é o justamente o formato que o formulário envia os dados por default
+  app.use(bodyParser.urlencoded({extended: true}));
+  ...
+  return app;
+};
 
 ********************************************************************************
+#Redirect
+res.redirect('/produtos');
+
 ********************************************************************************
+#Content Negotiation (Se o retorno é json ou html)
+[file -> old/cliente-android.js]
+// Faz o get na URL e traz json ou html
+var http = require('http');
+var configuracoes = {
+    hostname: 'localhost',
+    port: 3000,
+    path: '/produtos',
+    headers: {
+        'Accept': 'application/json'
+        //'Accept': 'text/html'
+    }
+};
+http.get(configuracoes, function (res) {
+    console.log(res.statusCode);
+    res.on('data', function (body) {
+        console.log('Corpo: ' + body);
+    });
+});
+
+[file -> app/routes/produtos.js]
+#Verifica se é html ou json
+res.format({
+    html: function () {
+        res.render('produtos/lista', {lista: results});
+    },
+    json: function () {
+        res.json(results)
+    }
+});
+
 ********************************************************************************
+#Suportando JSON no cadastro
+[file -> config/express.js]
+// Para aceitar Json
+app.use(bodyParser.json());
+
+[file -> old/cadastra-livros-terminal.js]
+var http = require('http');
+var configuracoes = {
+    hostname: 'localhost',
+    port: 3000,
+    method: 'post',
+    path: '/produtos',
+    headers: {
+        // Consome json
+        'Accept': 'application/json',
+        // Envia json
+        'Content-type': 'application/json'
+    }
+};
+// Prepara o post
+var client = http.request(configuracoes, function (res) {
+    // Imprime o status da request
+    console.log(res.statusCode);
+    res.on('data', function (body) {
+        console.log('Corpo: ' + body);
+    });
+});
+var produto = {
+    titulo: 'mais sobre node',
+    descricao: 'node, javascript e um pouco sobre http',
+    preco: '100'
+};
+// Faz o post
+client.end(JSON.stringify(produto));
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
