@@ -4,11 +4,12 @@ _connection <- Variavel privada
 Executando o npm (Cria o package.json que guarda as libs)
 npm init
 
-npm install express --save      <- Gerencia as urls
-sudo npm install -g nodemon     <- Reload
-npm install mysql --save        <- MySQL Database
-npm install express-load --save <- Carrega os modulos automatico por pastas
-npm install body-parser --save  <- Para pegar as informações do form
+npm install express --save            <- Gerencia as urls
+sudo npm install -g nodemon           <- Reload
+npm install mysql --save              <- MySQL Database
+npm install express-load --save       <- Carrega os modulos automatico por pastas
+npm install body-parser --save        <- Para pegar as informações do form
+npm install express-validator --save  <- Validador
 
 nodemon app                   <- Roda o nodemon
 ps -ef | grep node            <- Kill nodemon
@@ -16,7 +17,7 @@ kill -9 number
 npm install                   <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
 
 ********************************************************************************
-Atualizar o Node.js
+#Atualizar o Node.js
 sudo apt-get install npm
 sudo apt-get install nodejs
 sudo npm cache clean -f
@@ -354,6 +355,25 @@ var produto = {
 client.end(JSON.stringify(produto));
 
 ********************************************************************************
+#Exibindo as mensagens de erro para o usuário
+npm install express-validator --save <- Ativando o validador
+[file -> casadocodigo/config/express.js]
+var expressValidator = require('express-validator');
+module.exports = function () {
+    ...
+    app.use(expressValidator());
+    ...
+};
+
+[file -> casadocodigo/app/routes/produtos.js]
+req.assert('titulo', 'Campo obrigatório').notEmpty();
+req.assert('preco', 'Formato inválido').isFloat();
+const erros = req.validationErrors();
+if (erros) {
+  res.render('produtos/form', {errosValidacao: erros});
+  return;
+}
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
