@@ -4,7 +4,6 @@ var load = require('express-load');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 
-
 module.exports = function () {
     var app = express();
     // Para utilizar paginas dinamicas
@@ -18,7 +17,7 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({extended: true}));
     // Para aceitar Json
     app.use(bodyParser.json());
-    // Ativa o Express Validator
+    // Para utilizar o validador
     app.use(expressValidator());
 
     // Lista os que serão carregados automaticamente dentro do app
