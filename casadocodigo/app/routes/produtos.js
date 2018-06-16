@@ -7,7 +7,8 @@ module.exports = app.get('/produtos', function (req, res) {
 //var connectionFactory = require('../infra/connectionFactory');
 
 module.exports = function (app) {
-    var urlProdutos = '/produtos';
+    const urlProdutos = '/produtos';
+    const urlProdutosForm = urlProdutos + '/form';
 
     app.get(urlProdutos, function (req, res) {
         /*
@@ -44,7 +45,7 @@ module.exports = function (app) {
 
     });
 
-    app.get(urlProdutos + '/form', function (req, res) {
+    app.get(urlProdutosForm, function (req, res) {
         res.render('produtos/form');
     });
 
@@ -52,6 +53,17 @@ module.exports = function (app) {
         var produto = req.body;
         var connection = app.infra.connectionFactory();
         var produtosDAO = new app.infra.produtosDAO(connection);
+
+        var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório');
+        validatorTitulo.notEmpty();
+
+        var erros = req.validationErrors();
+        if (erros) {
+            console.log(erros);
+            res.redirect(urlProdutosForm);
+            return;
+        }
+
         produtosDAO.save(produto, function (erros, resultados) {
             // Redirect
             res.redirect(urlProdutos);

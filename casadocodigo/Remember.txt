@@ -5,12 +5,15 @@ Executando o npm (Cria o package.json que guarda as libs)
 npm init
 
 npm install express --save      <- Gerencia as urls
-sudo npm install -g nodemon     <- Reload
+sudo npm install -g nodemon     <- Reload (Global)
+npm install nodemon --save-dev  <- Só para devs
 npm install mysql --save        <- MySQL Database
 npm install express-load --save <- Carrega os modulos automatico por pastas
 npm install body-parser --save  <- Para pegar as informações do form
+npm install express-validator   <- Valida campos obrigatorios
 
-nodemon app                   <- Roda o nodemon
+nodemon app                   <- Roda o nodemon (Global)
+npx nodemon                   <- Roda o nodemon (Projeto)
 ps -ef | grep node            <- Kill nodemon
 kill -9 number
 npm install                   <- Se eu coloquei o --save acima o proximo que utilizar só roda o install
@@ -354,6 +357,22 @@ var produto = {
 client.end(JSON.stringify(produto));
 
 ********************************************************************************
+#Produto obrigatório
+npm install express-validator --save
+[file -> config/express.js]
+var expressValidator = require('express-validator');
+// Ativa o Express Validator
+app.use(expressValidator());
+
+[file -> app/routes/produtos.js] -> Valida o s campos
+var validatorTitulo = req.assert('titulo', 'Titulo é obrigatório');
+validatorTitulo.notEmpty();
+var erros = req.validationErrors();
+if (erros) {
+    res.render(urlProdutosForm);
+    return;
+}
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************

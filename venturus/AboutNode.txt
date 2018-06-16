@@ -1,0 +1,199 @@
+******************************************************************************
+Instalando
+npm init
+npm install express --save
+npm install nodemon --save-dev              <- Autodeploy (npx nodemon)
+npm install consign --save                  <- Injetar dependencias
+npm install sequelize sqlite3 --save        <- Framework ORM (Hibernate)
+npm install body-parser --save              <- Parser
+npm install express-validator --save        <- Validações da Rest API
+npm install passport passport-jwt jwt-simple --save <- Authenticação do sistema
+npm install bcrypt-nodejs --save            <- criptografa a senha
+
+******************************************************************************
+Mariana - venturussorte.com - Capacitação
+Rodrigo - Arquiteto de soluções - Instrutor
+Danilo - Java + Node - Instrutor
+Daniel - Node - Instrutor
+
+Node.js ->
+Nascido em 2009
+Single thred (Não tem gasto de memória)
+Usa o motor V8 do Google Chrome que converte para ling de máquina fast
+Orientado a eventos -> Operação e retorno (CALBACK)
+Processo de requisições I/O não bloqueante (Assincrono default) <- Utiliza o Event Loop para fazer isso
+Extremamente leve
+
+Quando usar ->
+Apps chat
+APIs facilmente escaláveis
+Streaming
+IoT
+Dashboard para monitoramentos de aplicações
+Sistemas para corretores de ações
+Backend para jogos
+
+Quando não usar ->
+Muito recurso de CPU
+Machine learning
+Regras de negócios muito complexas
+Quando precisa de multi threads
+
+******************************************************************************
+ES6 - Ecmascript 6 - O JavaScript implemente isso
+var     - variavel
+const   - constante
+let     - variavel que morre no final da function
+consome.log(`Ẁelcome, ${name}`); <- Interpolação
+consome.log(`
+Para
+pular
+linha
+sem o /n
+`);
+
+function sayHello(name){
+    return `Hello, ${name}`;
+}
+// Posso utilizar isso no lugar da function
+const sayHello = name => `Hello, ${name}`;
+const sayHello = name => {
+    return `Hello, ${name}`;
+}
+
+// For
+names.forEach(name => {
+   console.log(`Hello, ${name}`);
+});
+
+// Async e await
+const calc = async(v1, v2) => {
+    // Executa em ordem
+    const sumResult = await sum(v1,v2);
+    const multResult = await mult(v1,v2);
+}
+
+******************************************************************************
+NPM - Node package manager - 627.000 modulos criados - tudo free
+https://www.npmjs.com/
+
+******************************************************************************
+Comandos Node.js
+npm install nome-modulo --save-dev -> Instala só para os Devs
+npm list                -> Lista os modulos q foram instalados
+npm list -g             -> Lista os modulos q foram instalados globais
+npm uninstall -g nome   -> Remover
+
+******************************************************************************
+Package.json
+"express": "^4.16.3"    -> Aceita versões 4.16, 4.17
+"express": ">=4.16.3"   -> Aceita tudo (Cuidado)
+"express": "*"          -> Aceita tudo (Cuidado, péssimo)
+
+Automatizando - npm start, npm clean, npm test
+"scripts": {
+    "start": "node app.js",
+    "clean": "rm -rr node_modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+}
+
+******************************************************************************
+O node já vem com varios modulos nativos
+
+******************************************************************************
+Express - Framework Utilizado para criação de API
+Middlewares 3rd-party - Intercepta cliente e servidor
+
+******************************************************************************
+Tipos de responce
+download()    -> stream
+end()         ->
+redirect()    -> Redireciona
+render()      -> Devolvemos uma pagina para o cliente
+sendStatus()  -> Envia um status para o cliente
+
+******************************************************************************
+Sequelize - Framework ORM (Hibernate)
+npm install sequelize sqlite3 --save
+
+Suporte MySQL, Postgres, SQL Server e SQLite
+Padrão Promises
+Modelagem e rel das tabelas
+Tratamento de transactions
+Replicar DB para leitura
+Migrações
+
+SQLite - Banco em arquivo
+
+******************************************************************************
+hook -> Intercepta antes de colocar no banco
+
+******************************************************************************
+Passport - Autenticação do Face, google, twitter e outros
+Framework flexivel e modular
+Mais de 300 extrategias
+
+******************************************************************************
+#Testando no Postman
+get     -> localhost:3000/tasks
+get     -> localhost:3000/tasks/1
+******************************************************************************
+post    -> localhost:3000/tasks
+Headers:
+Content-Type - application/json
+Body: (Selecionar raw)
+{
+	"title" : "Estudar Java 3000"
+}
+******************************************************************************
+put     -> localhost:3000/tasks/1
+Body:
+{
+	"title" : "React ID 01",
+	"done": false
+}
+******************************************************************************
+post        -> localhost:3000/users
+Body:
+{
+	"nome": "Gustavo",
+	"email": "teste1@terra.com.br",
+	"password": "123456789"
+}
+******************************************************************************
+delete      -> localhost:3000/tasks/5
+Content-Type - application/json
+******************************************************************************
+post        -> localhost:3000/token
+{
+	"email": "teste1@terra.com.br",
+	"password": "123456789"
+}
+
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************
+******************************************************************************

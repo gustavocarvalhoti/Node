@@ -2,6 +2,8 @@
 var express = require('express');
 var load = require('express-load');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
+
 
 module.exports = function () {
     var app = express();
@@ -16,6 +18,8 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({extended: true}));
     // Para aceitar Json
     app.use(bodyParser.json());
+    // Ativa o Express Validator
+    app.use(expressValidator());
 
     // Lista os que serão carregados automaticamente dentro do app
     // cwd: 'app -> Buscar a partir dessa pastas

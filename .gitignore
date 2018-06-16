@@ -1,4 +1,5 @@
-casadocodigo/node_modules
+casadocodigo/node_modules/
 .idea
 .idea/vcs.xml
-/
+casadocodigo/app/infra/connectionFactory.js
+venturus/projeto_piloto/node_modules/
