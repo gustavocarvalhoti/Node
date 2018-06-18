@@ -15,6 +15,7 @@ function ProdutosDAO(connection) {
 }
 
 ProdutosDAO.prototype.lista = function (callback) {
+  // Esse callback é assincrono, ele retorna a lista quando retornar do BD
   this._connection.query('select * from livros', callback);
 };
 

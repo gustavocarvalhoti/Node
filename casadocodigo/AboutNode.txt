@@ -10,6 +10,8 @@ npm install mysql --save              <- MySQL Database
 npm install express-load --save       <- Carrega os modulos automatico por pastas
 npm install body-parser --save        <- Para pegar as informações do form
 npm install express-validator --save  <- Validador
+npm install mocha --save-dev          <- Testes
+npm install supertest --save-dev      <- Testes
 
 nodemon app                   <- Roda o nodemon
 ps -ef | grep node            <- Kill nodemon
@@ -375,5 +377,34 @@ if (erros) {
 }
 
 ********************************************************************************
+#Instalando o Mocha e executando testes
+npm install mocha --save-dev
+Por default ele busca a pasta test
+node_modules/mocha/bin/mocha <- Executa os testes
+var http = require('http');
+var assert = require('assert');
+// Qual controller vai testar
+describe('#ProdutosController', function () {
+    it('#listagem json', function (done) {
+        var configuracoes = {
+            hostname: 'localhost',
+            port: 3000,
+            path: '/produtos',
+            headers: {
+                'Accept': 'application/json'
+            }
+        };
+        http.get(configuracoes, function (res) {
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.headers['content-type'], 'application/json; charset=utf-8');
+            // Quando termina chama ele para finalizar
+            done();
+        });
+    });
+});
+
 ********************************************************************************
+#Lidando com o servidor nos testes
+npm install supertest --save-dev
+
 ********************************************************************************
