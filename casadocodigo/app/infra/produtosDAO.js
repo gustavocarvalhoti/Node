@@ -16,11 +16,11 @@ function ProdutosDAO(connection) {
 
 ProdutosDAO.prototype.lista = function (callback) {
   // Esse callback é assincrono, ele retorna a lista quando retornar do BD
-  this._connection.query('select * from livros', callback);
+  this._connection.query('select * from produto', callback);
 };
 
 ProdutosDAO.prototype.save = function (produto, callback) {
-  this._connection.query('insert into livros set ?', produto, callback);
+  this._connection.query('insert into produto set ?', produto, callback);
 };
 
 module.exports = function () {
