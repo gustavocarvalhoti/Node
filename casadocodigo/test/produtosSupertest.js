@@ -12,6 +12,7 @@ describe('#ProdutosControllerNewSupertest', function () {
     .expect(200, done); // Verifica se o retorno é 200 e finaliza
   });
 
+  /*
   it('#Cadastro de novo produto com dados invalidos', function (done) {
     request.post('/produtos')
     .set('Accept', 'application/json')
@@ -25,5 +26,6 @@ describe('#ProdutosControllerNewSupertest', function () {
     .send({titulo: "Java", descricao: "Novo livro de Java", preco: 20.50})
     .expect(302, done);
   });
+  */
 
 });

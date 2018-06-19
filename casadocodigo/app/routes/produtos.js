@@ -9,7 +9,7 @@ module.exports = app.get('/produtos', function (req, res) {
 module.exports = function (app) {
   var urlProdutos = '/produtos';
 
-  app.get(urlProdutos, function (req, res) {
+  app.get(urlProdutos, function (req, res, next) {
     /*
     var mysql = require('mysql');
     var connection = mysql.createConnection({
@@ -30,7 +30,10 @@ module.exports = function (app) {
     var produtosDAO = new app.infra.produtosDAO(connection);
 
     // Faz o select
-    produtosDAO.lista(function (err, results) {
+    produtosDAO.lista(function (erros, results) {
+      //console.log(erros);
+      if (erros) return next(erros);
+
       res.format({
         html: function () {
           res.render('produtos/lista', {lista: results});
@@ -41,7 +44,6 @@ module.exports = function (app) {
       });
     });
     connection.end();
-
   });
 
   app.get(urlProdutos + '/form', function (req, res) {

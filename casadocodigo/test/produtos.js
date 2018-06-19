@@ -3,6 +3,8 @@ var assert = require('assert');
 
 // Qual controller vai testar
 describe('#ProdutosControllerOld', function () {
+
+    /*
     it('#listagem json', function (done) {
         var configuracoes = {
             hostname: 'localhost',
@@ -12,10 +14,6 @@ describe('#ProdutosControllerOld', function () {
                 'Accept': 'application/json'
             }
         };
-
-        // Para testar remover essa linha
-        done();
-        return;
 
         http.get(configuracoes, function (res) {
             // Antes
@@ -31,4 +29,5 @@ describe('#ProdutosControllerOld', function () {
             done();
         });
     });
+    */
 });

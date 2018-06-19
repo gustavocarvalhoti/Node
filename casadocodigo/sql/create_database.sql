@@ -1,5 +1,5 @@
+##################################################################################################################################
 create schema casadocodigo_nodejs;
-
 use casadocodigo_nodejs;
 
 CREATE TABLE produto (
@@ -17,3 +17,14 @@ values ('Comecando com javascript', 'livro introdutório sobre javascript', 39.9
 
 insert into produto (titulo, descricao, preco)
 values ('Comecando com express', 'livro introdutório sobre express', 39.90);
+
+##################################################################################################################################
+create schema casadocodigo_nodejs_test;
+use casadocodigo_nodejs_test;
+
+CREATE TABLE produto (
+  id        int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  titulo    varchar(255)     DEFAULT NULL,
+  descricao text,
+  preco     decimal(10, 2)   DEFAULT NULL
+);
