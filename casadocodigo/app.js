@@ -8,6 +8,11 @@ você precisa adicioná-la como uma view engine da sua app
 //app.set('view engine', 'ejs');
 var port = 3000;
 var app = require('./config/express')();
+// Para fucionar a auto verificação
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.set('io', io);
+
 //require('./app/routes/produtos')(app);
 //require('./app/routes/home')(app);
 
@@ -25,6 +30,13 @@ app.get('/produtos', function (req, res) {
 });
 */
 
+/*
 app.listen(port, function () {
-    console.log("Servidor rodando na porta " + port);
+  console.log('Servidor rodando -> http://%s:%s', 'localhost', port);
+});
+*/
+
+// Para funcionar o IO precisa iniciar assim o listen
+http.listen(port, function () {
+  console.log('Servidor rodando -> http://%s:%s', 'localhost', port);
 });

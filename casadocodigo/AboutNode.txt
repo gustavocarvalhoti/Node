@@ -461,8 +461,58 @@ module.exports = function (app) {
 };
 
 ********************************************************************************
+#WebSocket no cliente (Chama de tempos em tempos, callable)
+npm install socket.io --save
+#Front
+[file -> casadocodigo/app/views/home/index.ejs]
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.on('novaPromocao',function(data){
+    debugger;
+    console.log("Golllllll");
+    alert("Livro em promocao " + data.livro.id)
+  });
+</script>
+#Back
+[file -> casadocodigo/app/routes/promocoes.js]
+app.post("/promocoes", function (req, res) {
+  var promocao = req.body;
+  console.log(promocao);
+  app.get('io').emit('novaPromocao',promocao);
+  res.redirect('promocoes/form');
+});
+#Preparando
+[file -> casadocodigo/app.js]
+var port = 3000;
+var app = require('./config/express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+app.set('io', io);
+// Para funcionar o IO precisa iniciar assim o listen
+http.listen(port, function () {
+  console.log('Servidor rodando -> http://%s:%s', 'localhost', port);
+});
+
 ********************************************************************************
+#Entendendo os Middlewares
+Praticamente tudo é middleware quando trabalhamos com o Express e isso é legal,
+pois podemos inserir funções que serão executadas no meio do código.
+Os Middlewares são funções cujo objetivo é possibilitar a interceptação do request e adicionar verificações e comportamentos sobre eles.
+Vários plugins que utilizamos na aplicação junto do express fazem uso dos middlewares.
+É o caso do bodyparser ou do express-validator, para citar dois exemplos.
+#Testando Middlewares que intercepta os erros
+NODE_ENV=production npx nodemon <-  Da para passar prop
+[file -> casadocodigo/config/express.js]
+// Caso dê pagina não encontrada (Colocar depois do load('routes', {cwd: 'app'}).then('infra').into(app))
+app.use(function (req, res, next) {
+  res.status(404).render('error/404');
+});
+
 ********************************************************************************
+#Preparando nosso ambiente para o deploy da aplicação no Heroku
+
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************
