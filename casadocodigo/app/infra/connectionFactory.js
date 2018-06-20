@@ -1,13 +1,13 @@
 var mysql = require('mysql');
 
 function createDBConnection() {
-  console.log('ENV: ' + process.env.NODE_ENV);
+  //console.log('ENV: ' + process.env.NODE_ENV);
 
   if (!process.env.NODE_ENV || process.env.node === 'dev') {
     return mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'padtec',
+      password: 'teste',
       database: 'casadocodigo_nodejs'
     });
   }
@@ -16,7 +16,7 @@ function createDBConnection() {
     return mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'padtec',
+      password: 'teste',
       database: 'casadocodigo_nodejs_test'
     });
   }

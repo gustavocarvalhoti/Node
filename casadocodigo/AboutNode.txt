@@ -433,9 +433,33 @@ if (process.env.NODE_ENV == 'test') {
   });
 }
 
+********************************************************************************
+#Deleta os dados antes do teste
+beforeEach(function (done) {
+    var conn = express.infra.connectionFactory();
+    new express.infra.produtosDAO(conn)
+        .delete(function (erros) {
+            if (!erros) done();
+        });
+    conn.end();
+});
 
 ********************************************************************************
-********************************************************************************
+#Tratando os recursos estáticos com Express
+// Mostra onde estão os arquivos estaticos
+app.use(express.static('./app/public'));
+[file -> app/routes/home.js] <- Aponta para o home que usa os arquivos staticos
+module.exports = function (app) {
+    app.get('/', function (req, res) {
+        const connection = app.infra.connectionFactory();
+        var produtosDAO = new app.infra.produtosDAO(connection);
+        produtosDAO.lista(function (erros, resultados) {
+            res.render('home/index', {livros: resultados});
+        });
+        connection.end();
+    });
+};
+
 ********************************************************************************
 ********************************************************************************
 ********************************************************************************

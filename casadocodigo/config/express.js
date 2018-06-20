@@ -19,6 +19,8 @@ module.exports = function () {
     app.use(bodyParser.json());
     // Para utilizar o validador
     app.use(expressValidator());
+    // Mostra onde estão os arquivos estaticos
+    app.use(express.static('./app/public'));
 
     // Lista os que serão carregados automaticamente dentro do app
     // cwd: 'app -> Buscar a partir dessa pastas
