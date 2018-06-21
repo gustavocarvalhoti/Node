@@ -48,6 +48,7 @@ var app = require('./config/express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.set('io', io);
+// Se não tiver ele pega a 3000
 var porta = process.env.PORT || 3000;
 http.listen(porta, function () {
     console.log("Servidor rodando no heroku");
